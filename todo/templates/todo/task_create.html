@@ -1,0 +1,22 @@
+{% extends "todo/base.html" %}
+
+{% block content %}
+
+    <h2>{% if task %}Edit{% else %}Add{% endif %} Task</h2>
+    {% if error %}
+        <div class="alert alert-danger">{{error}}</div>
+    {% endif %}
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label class="form-label">Title</label>
+            <input type="text" name="Title" class="form-control" value="{{task.Title}}">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Description</label>
+            <textarea name="Description" class="form-control" rows="3">{{task.Description}}</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a href="{% url 'todo:task_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+{% endblock %}
